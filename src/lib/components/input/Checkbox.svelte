@@ -2,27 +2,15 @@
 
     import { idByName, descrByName } from "./util.js";
 
-    interface Props {
-        label?: string;
-        name: string;
-        value?: string;
-        checked?: boolean;
-        placeholder?: string;
-        id?: string;
-        descr?: string;
-        disabled?: boolean;
-    }
-
-    let {
-        label = '',
-        name,
-        value = 'on',
-        checked = false,
-        placeholder = '',
-        id = idByName(name),
-        descr = descrByName(name),
-        disabled = false
-    }: Props = $props();
+    export let
+    	label: string = '',
+        name: string,
+        value: string = 'on',
+	checked: boolean = false,
+        placeholder: string = '',
+	id: string = idByName(name),
+	descr: string = descrByName(name),
+	disabled: boolean = false
 
 </script>
 

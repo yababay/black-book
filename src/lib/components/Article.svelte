@@ -1,11 +1,7 @@
 <script lang="ts">
     import showdown from 'showdown'
 
-    interface Props {
-        readme: string;
-    }
-
-    let { readme }: Props = $props();
+    export let readme: string
     
     const converter = new showdown.Converter()
     const html = converter.makeHtml(readme)

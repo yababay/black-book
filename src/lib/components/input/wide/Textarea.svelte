@@ -3,34 +3,19 @@
     import Wrapper from './Wrapper.svelte'
     import Textarea from '../Textarea.svelte'
 
-    interface Props {
-        name: string;
-        label?: string;
-        value?: string;
-        placeholder?: string;
-        rows?: number;
-        maxlength?: number;
-        disabled?: boolean;
-        children?: import('svelte').Snippet;
-    }
-
-    let {
-        name,
-        label = '',
-        value = '',
-        placeholder = '',
-        rows = 3,
+    export let
+        name: string,
+        label: string = '',
+        value: string = '',
+    	placeholder: string = '',
+        rows: number = 3,
         maxlength = 50000,
-        disabled = false,
-        children
-    }: Props = $props();
+        disabled: boolean = false
 
 
 </script>
 
 <Wrapper {label} {name}>
-    {#snippet input()}
-        <Textarea {value} {name} {placeholder} {disabled} {rows} {maxlength} />
-    {/snippet}
-    {@render children?.()}
+    <Textarea {value} {name} {placeholder} {disabled} {rows} {maxlength} slot="input"/>
+    <slot />
 </Wrapper>

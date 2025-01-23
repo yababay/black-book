@@ -1,4 +1,4 @@
-import { PROJECT_PREFIX, QUEUE_PREFIX, TOPIC_COUNTER_KEY, TOPIC_COUNTER_START_VALUE, type Message, type Topic, type TOPIC_TYPE } from '$lib/types';
+import { TOPIC_KEYS, PROJECT_PREFIX, QUEUE_PREFIX, TOPIC_COUNTER_KEY, TOPIC_COUNTER_START_VALUE, type Message, type Topic, type TOPIC_TYPE } from '$lib/types';
 import { createClient } from 'redis';
 
 const client = createClient()
@@ -33,6 +33,10 @@ export const removeFromQueue = async (suffix: TOPIC_TYPE, id: number | string) =
     while(count) {
         count = await client.lRem(key, 1, `${id}`)
     }
+}
+
+export const removeFromQueues = async (id: number | string) => {
+    for(const suffix of TOPIC_KEYS) await removeFromQueue(suffix, id)
 }
 
 export const saveTopic = async (message: Topic) => {

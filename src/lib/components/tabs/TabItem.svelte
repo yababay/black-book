@@ -1,18 +1,6 @@
 <script lang="ts">
     import type { Booleanish } from "svelte/elements";
-    interface Props {
-        target: string;
-        label: string;
-        selected?: Booleanish;
-        active: boolean;
-    }
-
-    let {
-        target,
-        label,
-        selected = 'false',
-        active
-    }: Props = $props();
+    export let target: string, label: string, selected: Booleanish = 'false', active: boolean
 </script>
 
 <li class="nav-item" role="presentation">

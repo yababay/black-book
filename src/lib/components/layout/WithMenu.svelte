@@ -4,29 +4,16 @@
     import WithHeader from './WithHeader.svelte'
     import Menu from '../menu/index.svelte'
 
-    interface Props {
-        items?: MenuItems | undefined;
-        brand?: string | undefined;
-        icon?: string | undefined;
-        title?: string;
-        children?: import('svelte').Snippet;
-    }
-
-    let {
-        items = undefined,
-        brand = undefined,
-        icon = undefined,
-        title = '',
-        children
-    }: Props = $props();
+    export let items: MenuItems | undefined = undefined
+    export let brand: string | undefined = undefined
+    export let icon: string | undefined = undefined
+    export let title: string = ''
 
 </script>
 
 <WithHeader>
-    {#snippet header()}
-        <Menu {items} {brand} {icon} />
-    {/snippet}
-    {@render children?.()}
+    <Menu {items} {brand} {icon} slot="header"/>
+    <slot />
 </WithHeader>
 
 <svelte:head>

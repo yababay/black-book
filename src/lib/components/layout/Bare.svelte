@@ -1,14 +1,9 @@
 <script lang="ts">
-    interface Props {
-        title?: string;
-        children?: import('svelte').Snippet;
-    }
-
-    let { title = '', children }: Props = $props();
+    export let title: string = ''
 </script>
 
 <div class="bare-layout">
-    {@render children?.()}
+    <slot />
 </div>
 
 <style lang="scss">

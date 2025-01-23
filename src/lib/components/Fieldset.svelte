@@ -1,16 +1,11 @@
 <script lang="ts">
-    interface Props {
-        legend: string;
-        children?: import('svelte').Snippet;
-    }
-
-    let { legend, children }: Props = $props();
+    export let legend: string
 </script>
 
 <fieldset>
     <legend>{legend}</legend>
-    <section class="d-flex flex-column justify-content-between align-items-center m-0 w-100">
-        {@render children?.()}
+    <section class="d-flex flex-column justify-content-between align-items-center m-0 w-100 h-100">
+        <slot />
     </section>
 </fieldset>
 
@@ -21,6 +16,7 @@
 
     fieldset {
         width: 100%;
+        height: 100%;
         max-width: 80ch;
         box-sizing: border-box;
         margin: 0;

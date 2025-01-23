@@ -1,0 +1,15 @@
+[Unit]
+Description=Black book of communism
+After=network.target
+
+[Service]
+WorkingDirectory=/home/mabel/.3f-lab/_humanitarian/black-book
+Environment=ORIGIN=https://bbc.yababay.me
+Environment=PORT=3010
+Environment=BODY_SIZE_LIMIT=Infinity
+ExecStart=/usr/local/bin/node build
+Restart=on-failure
+RestartSec=2s
+
+[Install]
+WantedBy=multi-user.target

@@ -4,15 +4,9 @@
     import iconStub from './icon.svg?raw'
     import { brandStub, itemsStub } from './index.json'
 
-    interface Props {
-        brand?: any;
-        items?: MenuItems;
-        icon?: any;
-    }
+    export let brand = brandStub, items: MenuItems = itemsStub, icon = iconStub
 
-    let { brand = brandStub, items = itemsStub, icon = iconStub }: Props = $props();
-
-    let { pathname } = $state($page.url)
+    let { pathname } = $page.url
     if(!pathname.trim()) pathname = '/'
 
     const getMenu = (): MenuItems => items.map(item => {
@@ -32,7 +26,7 @@
 <nav class="navbar bg-body-tertiary navbar-expand-lg" data-bs-theme="dark">
 <!-- nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" -->
     <div class="container-fluid">
-        <!-- svelte-ignore a11y_missing_attribute -->
+        <!-- svelte-ignore a11y-missing-attribute -->
         <a class="navbar-brand d-flex align-items-center gap-2" href="/" data-testid="brand" rel="external">
             {@html logo}
             {brand}
@@ -46,14 +40,14 @@
             aria-expanded="false"
             aria-label="Toggle navigation"
         >
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon" />
         </button>
         <div class="collapse navbar-collapse" id="navbar-text">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {#each getMenu() as {title, href, items, icon} }
                     {#if items}
                         <li class="nav-item dropdown">   
-                            <!-- svelte-ignore a11y_invalid_attribute -->
+                            <!-- svelte-ignore a11y-invalid-attribute -->
                             <a class="nav-link dropdown-toggle" {href} role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="external">
                                 {#if icon}
                                     <i class={`bi bi-${icon} d-inline`}></i>

@@ -3,32 +3,18 @@
     import Wrapper from './Wrapper.svelte'
     import Range from '../Range.svelte'
 
-    interface Props {
-        name: string;
-        label?: string;
-        value?: number;
-        min?: number;
-        max?: number;
-        disabled?: boolean;
-        children?: import('svelte').Snippet;
-    }
-
-    let {
-        name,
-        label = '',
-        value = 0,
-        min = 0,
-        max = 100,
-        disabled = false,
-        children
-    }: Props = $props();
+    export let
+        name: string,
+        label: string = '',
+        value: number = 0,
+        min: number = 0,
+        max: number = 100,
+	disabled: boolean = false
 
 
 </script>
 
 <Wrapper {label} {name}>
-    {#snippet input()}
-        <Range {value} {min} {max} {name} {disabled} />
-    {/snippet}
-    {@render children?.()}
+    <Range {value} {min} {max} {name} {disabled} slot="input"/>
+    <slot />
 </Wrapper>

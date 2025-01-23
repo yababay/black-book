@@ -1,10 +1,5 @@
 <script lang="ts">
-    interface Props {
-        columns: string[] | string;
-        children?: import('svelte').Snippet;
-    }
-
-    let { columns = $bindable(), children }: Props = $props();
+    export let columns: string[] | string
     if(typeof columns === 'string') columns = columns.split(/[\ \,]+/)
 </script>
 
@@ -17,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        {@render children?.()}
+        <slot />
     </tbody>
 </table>
 

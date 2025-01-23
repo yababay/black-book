@@ -3,19 +3,9 @@
     import { idByName, descrByName } from "../util.js";
 
 
-    interface Props {
-        name: string;
-        label?: string;
-        input?: import('svelte').Snippet;
-        children?: import('svelte').Snippet;
-    }
-
-    let {
-        name,
-        label = '',
-        input,
-        children
-    }: Props = $props();
+    export let
+        name: string,
+        label: string = ''
 
     const id = idByName(name)
     const descr = descrByName(name)
@@ -24,8 +14,8 @@
 
 <div class="w-100">
     <label for={id} class="form-label" class:d-none={!(label && label.trim())}>{label}</label>
-    {@render input?.()}
+    <slot name="input" />
     <div class="form-text" id={descr}>
-    	{@render children?.()}
+    	<slot />
     </div>
 </div>

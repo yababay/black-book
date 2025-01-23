@@ -2,17 +2,11 @@
 
     type BootstrapLook = 'info' | 'success' | 'danger' | 'warning'
 
-    interface Props {
-        look?: BootstrapLook;
-        center?: boolean;
-        children?: import('svelte').Snippet;
-    }
-
-    let { look = 'info', center = true, children }: Props = $props();
+    export let look: BootstrapLook = 'info', center: boolean = true
 </script>
 
 <div class={`alert alert-${look} w-75`} class:text-center={center} role="alert">
-    {@render children?.()}
+    <slot />
 </div>
 
 <style lang="scss">

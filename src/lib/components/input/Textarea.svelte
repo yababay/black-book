@@ -2,27 +2,15 @@
 
     import { idByName, descrByName } from "./util.js";
 
-    interface Props {
-        name: string;
-        value?: string;
-        placeholder?: string;
-        rows?: number;
-        maxlength?: number;
-        id?: string;
-        descr?: string;
-        disabled?: boolean;
-    }
-
-    let {
-        name,
-        value = '',
-        placeholder = '',
-        rows = 3,
+    export let
+        name: string,
+        value: string = '',
+        placeholder: string = '',
+        rows: number = 3,
         maxlength = 50000,
-        id = idByName(name),
-        descr = descrByName(name),
-        disabled = false
-    }: Props = $props();
+		id: string = idByName(name),
+		descr: string = descrByName(name),
+    	disabled: boolean = false
 
 </script>
 

@@ -1,21 +1,15 @@
 <script lang="ts">
-    interface Props {
-        title?: string;
-        header?: import('svelte').Snippet;
-        children?: import('svelte').Snippet;
-    }
-
-    let { title = '', header, children }: Props = $props();
+    export let title: string = ''
 </script>
 
 <div class="layout-with-header">
     
     <header>
-        {@render header?.()}
+        <slot name="header" />
     </header>
 
     <main>
-        {@render children?.()}
+        <slot />
     </main>
 
 </div>

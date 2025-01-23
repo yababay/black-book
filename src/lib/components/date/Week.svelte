@@ -21,12 +21,7 @@
         .slice(mondayIndex, mondayIndex + 7)
         .map(date => getRussianDayOfWeek(date))
 
-    interface Props {
-        label: string;
-        checked?: string[];
-    }
-
-    let { label, checked = [] }: Props = $props();
+    export let label: string, checked: string[] = []
 
 </script>
 

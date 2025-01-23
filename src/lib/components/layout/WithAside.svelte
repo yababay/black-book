@@ -1,21 +1,15 @@
 <script lang="ts">
-    interface Props {
-        title?: string;
-        aside?: import('svelte').Snippet;
-        children?: import('svelte').Snippet;
-    }
-
-    let { title = '', aside, children }: Props = $props();
+    export let title: string = ''
 </script>
 
 <div class="layout-with-aside">
 
     <aside>
-        {@render aside?.()}
+        <slot name="aside" />
     </aside>
     
     <section>
-        {@render children?.()}
+        <slot />
     </section>
 </div>
 
