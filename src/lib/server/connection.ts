@@ -1,11 +1,11 @@
 import { TOPIC_KEYS, PROJECT_PREFIX, QUEUE_PREFIX, TOPIC_COUNTER_KEY, TOPIC_COUNTER_START_VALUE, type Message, type Topic, type TOPIC_TYPE } from '$lib/types';
 import { createClient } from 'redis';
 
-const client = createClient()
+export const client = createClient()
 
 let isConnected = false
 
-const checkConnection = async () => {
+export const checkConnection = async () => {
     if(isConnected) return
     await client.connect()
     isConnected = true
@@ -18,7 +18,7 @@ export const nextTopicId = async () => {
     return +(await client.incr(TOPIC_COUNTER_KEY)) 
 }
 
-export const getTopicKey = async (suffix: TOPIC_TYPE, id?: number) => {
+export const getTopicKey = async (suffix: TOPIC_TYPE, id?: number | string) => {
     if(!id) id = await nextTopicId()
     return `${PROJECT_PREFIX}:topic:${suffix}:${id}`
 }
@@ -52,10 +52,13 @@ export const saveTopic = async (message: Topic) => {
     return +id
 }
 
-export const getTopic = async (topic: TOPIC_TYPE, id: number): Promise<Message> => {
+export const getMessage = async (topic: TOPIC_TYPE, id?: number | string | null): Promise<Message> => {
+    const queue = getQueueKey(topic)
+    if(!id) id = await client.rPopLPush(queue, queue)
+    if(!id) throw 'no id is found'
     const key = await getTopicKey(topic, id)
     const {body, source} = await client.hGetAll(key)
-    let props: Message = { id, topic, body }
+    let props: Message = { id: +id, topic, body }
     if(source && source.trim()) props = {...props, source}
     return props
 }

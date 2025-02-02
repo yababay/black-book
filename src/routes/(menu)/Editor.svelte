@@ -5,9 +5,10 @@
     import Submit from "$lib/components/Submit.svelte"
     import { TOPIC_KEYS, TOPIC_RECORDS, type TOPIC_TYPE, type Topic } from "$lib/types"
 
-    export let data: Topic = { body: '', source: '' }, prev: string = ''
+    export let data: Topic = { body: '', source: '' }, prev: string = '', topic: string = ''
 
-    const { body, source, topic, id } = data
+    const { body, source, id } = data
+    if(data.topic) topic = data.topic
     const legend = typeof id === 'number' ? `Сообщение №${id}` : 'Новое сообщение'
     const options: {value: TOPIC_TYPE, title: string}[] = TOPIC_KEYS.map(value => {
         const { title } = TOPIC_RECORDS[value]

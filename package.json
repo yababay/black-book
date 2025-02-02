@@ -10,9 +10,12 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
-		"deploy:pkg": "scp package.json ru:/home/mabel/.3f-lab/_humanitarian/black-book && ssh ru npm i --omit=dev --prefix=/home/mabel/.3f-lab/_humanitarian/black-book",
+		"deploy:pkg": "scp package.json ru:/home/mabel/.3f-lab/_humanitarian/black-book && ssh ru npm i --omit=dev --prefix=/home/mabel/.3f-lab/_humanitarian/black-book --legacy-peer-deps",
 		"deploy:nginx": "scp etc/nginx.conf ru:/home/mabel/.3f-lab/_humanitarian/black-book",
-		"deploy:rsync": "npm run build && rsync -ar build ru:/home/mabel/.3f-lab/_humanitarian/black-book"
+		"deploy:rsync": "npm run build && rsync -ar build ru:/home/mabel/.3f-lab/_humanitarian/black-book",
+		"deploy:restart": "ssh ru sudo service black-book restart",
+		"deploy": "npm run deploy:rsync && npm run deploy:restart",
+		"backup": "ssh ru sudo service redis-backup start && rsync -ar ru:/home/mabel/.3f-lab/_humanitarian/black-book/backup/*.* backup"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -28,6 +31,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"redis": "^4.7.0"
+		"redis": "^4.7.0",
+		"telegraf": "^4.16.3"
 	}
 }
