@@ -15,6 +15,11 @@
 		"deploy:rsync": "npm run build && rsync -ar build ru:/home/mabel/.3f-lab/_humanitarian/black-book",
 		"deploy:restart": "ssh ru sudo service black-book restart",
 		"deploy": "npm run deploy:rsync && npm run deploy:restart",
+		"redis-cli": "redis-cli -p 6377 --raw",
+		"redis-server": "redis-server etc/6377.conf",
+		"publish:fact": "/usr/bin/curl http://localhost:5173/publish/ce66bc9a-da34-11ef-8c04-93fa09a0faac/fact",
+		"publish:memo": "/usr/bin/curl http://localhost:5173/publish/ce66bc9a-da34-11ef-8c04-93fa09a0faac/memo",
+		"publish:quotation": "/usr/bin/curl http://localhost:5173/publish/ce66bc9a-da34-11ef-8c04-93fa09a0faac/quotation",
 		"backup": "ssh ru sudo service redis-backup start && rsync -ar ru:/home/mabel/.3f-lab/_humanitarian/black-book/backup/*.* backup"
 	},
 	"devDependencies": {

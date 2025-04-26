@@ -6,6 +6,7 @@
     import { TOPIC_KEYS, TOPIC_RECORDS, type TOPIC_TYPE, type Topic } from "$lib/types"
 
     export let data: Topic = { body: '', source: '' }, prev: string = '', topic: string = ''
+    export let skip = false
 
     const { body, source, id } = data
     if(data.topic) topic = data.topic
@@ -19,6 +20,9 @@
 
 <div class="wrap">
     <Form {legend}>
+        {#if id}
+            <input type="hidden" value={id} name="id">
+        {/if}
         <Field label="Коллекция">
             <select class="form-select" aria-label="Список топиков" name="topic">
                 {#each options as {value, title} }
@@ -28,7 +32,16 @@
         </Field>
         <Textarea name="body" value={body}/>
         <Field label="Источник" name="source"  value={ source || prev }/>
-        <Submit />
+        {#if skip}
+            <Submit formaction="?/save">
+                <span slot="options" class="w-75 d-inline-block text-start">
+                    <button class="btn btn-secondary" type="submit" formaction="?/stop">Закончить</button>
+                    <button class="btn btn-secondary" type="submit" formaction="?/skip">Пропустить</button>
+                </span>
+            </Submit>
+        {:else}
+            <Submit />
+        {/if}
     </Form>
 </div>
 

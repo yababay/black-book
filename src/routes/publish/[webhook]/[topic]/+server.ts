@@ -1,3 +1,4 @@
+import { dev } from '$app/environment'
 import { TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL, WEBHOOK } from '$env/static/private'
 import { Telegram } from 'telegraf'
 import { getMessage } from '$lib/server/connection'
@@ -15,7 +16,12 @@ export const GET = async({ params }) => {
     const props = await getMessage(topic as TOPIC_TYPE)
     const { body, source } = props
     let message = body
+    .replace(/(\r\n){2,}/g, '%%')
+    .replace(/\n{2,}/g, '%%')
+    .replace(/[\r\n]/g, ' ')
+    .replaceAll('%%', '\n\n')
     if(source && source.trim()) message += `\n\n${source}`
     await telegram.sendMessage(TELEGRAM_CHANNEL, message, options)
+    if(dev) console.log({message})
     return new Response('ok')
 }

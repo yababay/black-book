@@ -1,4 +1,4 @@
-import { saveTopis } from '$lib/server/routes'
+import { saveTopic } from '$lib/server/routes'
 import { PREV_SOURCE, PREV_TOPIC } from '$lib/types/constants'
 
 export const load = async ({ cookies }) => {
@@ -10,7 +10,7 @@ export const load = async ({ cookies }) => {
 export const actions = {
     default: async ({request, cookies}) => {
         const data = await request.formData()
-        const message = await saveTopis(data)
+        const message = await saveTopic(data)
         if(Reflect.has(message, 'failure')) return message
         const prev = Reflect.get(message, 'source')
         const topic = Reflect.get(message, 'topic')

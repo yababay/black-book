@@ -1,7 +1,10 @@
+import { REDIS_PORT } from '$env/static/private'
 import { TOPIC_KEYS, PROJECT_PREFIX, QUEUE_PREFIX, TOPIC_COUNTER_KEY, TOPIC_COUNTER_START_VALUE, type Message, type Topic, type TOPIC_TYPE } from '$lib/types';
 import { createClient } from 'redis';
 
-export const client = createClient()
+const url = `redis://localhost:${REDIS_PORT}`
+
+export const client = createClient({url})
 
 let isConnected = false
 
@@ -39,7 +42,7 @@ export const removeFromQueues = async (id: number | string) => {
     for(const suffix of TOPIC_KEYS) await removeFromQueue(suffix, id)
 }
 
-export const saveTopic = async (message: Topic) => {
+export const saveTopic = async (message: Topic, right: boolean = false) => {
     const { topic, body, source } = message
     if(!(topic && typeof body === 'string' && body.trim())) throw 'no topic or body'
     const key = await getTopicKey(topic, message.id)
@@ -48,7 +51,7 @@ export const saveTopic = async (message: Topic) => {
     await client.hSet(key, 'body', body)
     if(source) await client.hSet(key, 'source', source)
     const queue = getQueueKey(topic)
-    await client.lPush(queue, id)
+    right ? await client.rPush(queue, id) : await client.lPush(queue, id)
     return +id
 }
 

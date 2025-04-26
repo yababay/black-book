@@ -1,6 +1,7 @@
-<script>
-    import Alert from "$lib/components/Alert.svelte";
-
+<script lang="ts">
+    import { Topic } from '$lib/types';
+    import Editor from '../../Editor.svelte'
+    export let data: Topic
 </script>
 
-<Alert>edit</Alert>
+<Editor {data} skip={true}/>

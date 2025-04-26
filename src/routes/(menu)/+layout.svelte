@@ -10,8 +10,10 @@
     if(topic) title = `Коллекция «${title}»`
     const brand = title
 
+    const journals = { title: 'Мемуары (импорт)', icon: 'journal', href: `/diary` }
+
 </script>
 
-<LayoutWithMenu {title} {brand} {items} >
+<LayoutWithMenu {title} {brand} items={[...items, journals]} >
     <slot />
 </LayoutWithMenu>
