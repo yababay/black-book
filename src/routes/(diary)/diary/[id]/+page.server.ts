@@ -6,7 +6,7 @@ const diaries = 'diaries'
 
 const adjust = (text: string) => text
     .replaceAll('</p>', '\n\n')
-    .replace(/\<\/?[a-zA-Z]+\>/g, ' ')
+    .replace(/\<\/?[a-zA-Z]+([^\>]+)?\>/g, ' ')
     .replace(/(\r\n){2,}/g, '%%')
     .replace(/\n{2,}/g, '%%')
     .replace(/[\r\n]/g, ' ')
@@ -14,6 +14,7 @@ const adjust = (text: string) => text
     .replaceAll('%%', '\n\n')
     .replaceAll('\n ', '\n')
     .replace(/^\s+/g, '')
+    .trim()
 
 export const load = async ({fetch, params}) => {
     await checkConnection()

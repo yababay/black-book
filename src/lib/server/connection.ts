@@ -57,7 +57,12 @@ export const saveTopic = async (message: Topic, right: boolean = false) => {
 
 export const getMessage = async (topic: TOPIC_TYPE, id?: number | string | null): Promise<Message> => {
     const queue = getQueueKey(topic)
-    if(!id) id = await client.rPopLPush(queue, queue)
+    const queueUsed = `${queue}_used`
+    if(!id) id = await client.rPopLPush(queue, queueUsed)
+    if(!(await client.exists(queue))) {
+        if(!(await client.exists(queueUsed))) throw 'both queues are absent' 
+        await client.rename(queueUsed, queue)
+    }
     if(!id) throw 'no id is found'
     const key = await getTopicKey(topic, id)
     const {body, source} = await client.hGetAll(key)

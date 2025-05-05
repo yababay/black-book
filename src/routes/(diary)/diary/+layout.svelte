@@ -15,7 +15,7 @@
         </div>
         <ul>
             {#each persons as {key, firstname, lastname}}
-                <li><a href={`/diary/${key}`}>{`${firstname} ${lastname}`}</a></li>
+                <li><a href={`/diary/${key}`} rel="external">{`${firstname} ${lastname}`}</a></li>
             {/each}
         </ul>
         <p>&nbsp;</p>

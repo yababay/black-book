@@ -16,6 +16,7 @@
 		"deploy:restart": "ssh ru sudo service black-book restart",
 		"deploy": "npm run deploy:rsync && npm run deploy:restart",
 		"redis-cli": "redis-cli -p 6377 --raw",
+		"git": "read -p 'Суть коммита: ' COMMIT; git add . ; git commit -am $COMMIT; git push origin main",
 		"redis-server": "redis-server etc/6377.conf",
 		"publish:fact": "/usr/bin/curl http://localhost:5173/publish/ce66bc9a-da34-11ef-8c04-93fa09a0faac/fact",
 		"publish:memo": "/usr/bin/curl http://localhost:5173/publish/ce66bc9a-da34-11ef-8c04-93fa09a0faac/memo",
